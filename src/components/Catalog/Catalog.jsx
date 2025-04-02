@@ -1,20 +1,64 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchCars } from "../../redux/operations";
-// import { selectFilteredContacts } from "../../redux/contactsSlice";
+import { FilterForm } from "../FilterForm/FilterForm";
+
+const cars = [
+  { id: 1, brand: "Mercedes", price: 40, mileAge: 3432 },
+  { id: 2, brand: "Toyota", price: 60, mileAge: 5604 },
+  { id: 3, brand: "BMW", price: 90, mileAge: 1200 },
+  { id: 4, brand: "Honda", price: 30, mileAge: 5647 },
+  { id: 5, brand: "Bently", price: 100, mileAge: 500 },
+  { id: 6, brand: "Opel", price: 20, mileAge: 7890 },
+];
 
 export const Catalog = () => {
-  //   const filteredCars = useSelector(selectFilteredCars);
+  const [filteredCars, setFilteredCars] = useState(cars);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCars());
   }, [dispatch]);
 
+  const handleFilter = (values) => {
+    let filtered = cars;
+
+    if (values.brand) {
+      filtered = filtered.filter((p) => p.brand === values.brand);
+    }
+
+    if (values.price) {
+      filtered = filtered.filter((p) => p.price === Number(values.price));
+    }
+
+    if (values.mileAgeFrom) {
+      filtered = filtered.filter(
+        (p) => p.mileAge >= Number(values.mileAgeFrom)
+      );
+    }
+
+    if (values.mileAgeTo) {
+      filtered = filtered.filter((p) => p.mileAge <= Number(values.mileAgeTo));
+    }
+
+    setFilteredCars(filtered);
+  };
+
   return (
-    <ul>
-      <li></li>
-    </ul>
+    <div>
+      <FilterForm onFilter={handleFilter} />
+      <ul>
+        {filteredCars.length > 0 ? (
+          filteredCars.map((car) => (
+            <li key={car.id}>
+              {car.name} - {car.price} $
+            </li>
+          ))
+        ) : (
+          <p>Not found cars...</p>
+        )}
+      </ul>
+    </div>
   );
 };
 
