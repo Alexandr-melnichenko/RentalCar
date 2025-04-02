@@ -1,0 +1,10 @@
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  background-color: #f2f4f7;
+  padding-left: 120px;
+  padding-right: 120px;
+}

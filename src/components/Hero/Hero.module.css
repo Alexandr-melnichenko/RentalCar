@@ -1,0 +1,49 @@
+.backgroundHero {
+  display: flex;
+  flex-direction: column;
+  background-image: url("../../../public/img/Picture-background.webp");
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 700px;
+  position: relative;
+}
+
+.contentBox {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+  width: max-content;
+}
+
+.title {
+  color: #fff;
+  font-size: 60px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.text {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0;
+  margin-top: 16px;
+}
+
+.btn {
+  width: 276px;
+  height: 44px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3470ff;
+  color: #fff;
+  font-size: 16px;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -3,40 +3,41 @@ import { useDispatch } from "react-redux";
 import { fetchCars } from "../../redux/operations";
 // import { selectFilteredContacts } from "../../redux/contactsSlice";
 
-
 export const Catalog = () => {
-    const filteredCars = useSelector(selectFilteredCars);
-    const dispatch = useDispatch();
+  //   const filteredCars = useSelector(selectFilteredCars);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-     dispatch(fetchCars());
+    dispatch(fetchCars());
   }, [dispatch]);
 
   return (
-    // <ul className={s.listContact}>
-    //   {filteredContacts.map((contact) => (
-    //     <li key={contact.id}>
-    //       <Contact contact={contact} />
-    //     </li>
-    //   ))}
-    // </ul>
-  )
+    <ul>
+      <li></li>
+    </ul>
+  );
 };
 
-
+// <ul className={s.listContact}>
+//   {filteredContacts.map((contact) => (
+//     <li key={contact.id}>
+//       <Contact contact={contact} />
+//     </li>
+//   ))}
+// </ul>
 
 // const MovieList = ({ films }) => {
 //     const location = useLocation();
 //     console.log('Location:', location);
 //     console.log('films:', films);
-  
+
 //     return (
 //       <ul className={style.movieList}>
 //         {films.map(film => {
 //           const imgUrl = film.poster_path
 //             ? `${IMG_BASE_URL}/w185${film.poster_path}`
 //             : null;
-  
+
 //           return (
 //             <li className={style.movieListItem} key={film.id}>
 //               <Link
@@ -67,5 +68,5 @@ export const Catalog = () => {
 //       </ul>
 //     );
 //   };
-  
+
 //   export default MovieList;

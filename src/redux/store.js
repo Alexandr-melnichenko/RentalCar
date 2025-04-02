@@ -10,18 +10,8 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { carsReducer } from "./slice";
-
-const filterPersistConfig = {
-  key: "filter",
-  storage,
-  whitelist: ["token", "filterData"],
-};
-
-const persistedFilterReducer = persistReducer(
-  filterPersistConfig,
-  filterReducer
-);
+import { carsReducer } from "./carsSlice";
+import { favoriteReducer } from "./favoriteSlice";
 
 const carsPersistConfig = {
   key: "cars",
@@ -44,7 +34,6 @@ const persistedFavoriteReducer = persistReducer(
 
 export const store = configureStore({
   reducer: {
-    filter: persistedFilterReducer,
     cars: persistedCarsReducer,
     favorite: persistedFavoriteReducer,
   },

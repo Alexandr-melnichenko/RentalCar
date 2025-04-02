@@ -1,0 +1,11 @@
+.menu {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  align-items: center;
+}
+
+.links {
+  font-size: 16px;
+  color: black;
+}
