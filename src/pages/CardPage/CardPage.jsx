@@ -1,3 +1,14 @@
+import { CardDescription } from "../../components/CardDescription/CardDescription";
+import { CardForm } from "../../components/CardForm/CardForm";
+
 export const CardPage = () => {
-  return;
+  return (
+    <div>
+      <div>
+        <img alt="" href=""></img>
+        <CardForm />
+      </div>
+      <CardDescription />
+    </div>
+  );
 };

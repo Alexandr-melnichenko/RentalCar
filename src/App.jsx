@@ -3,6 +3,8 @@ import "./App.css";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { CatalogPage } from "./pages/CatalogPage/CatalogPage";
 import { CardPage } from "./pages/CardPage/CardPage";
+// import { useEffect } from "react";
+// import { useDispatch } from "react-redux";
 
 function App() {
   return (
