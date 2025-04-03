@@ -5,42 +5,63 @@ const initialState = {
   items: [],
   isLoading: false,
   error: null,
-  filters: {
-    carBrand: "",
-    pricePerHour: "",
-    mileAgeFrom: "",
-    mileAgeTo: "",
-  },
+  filteredItems: [],
+  status: "idle",
 };
 
 const carsSlice = createSlice({
   name: "cars",
   initialState,
+  reducers: {
+    filterCars: (state, action) => {
+      const { brand, price, mileAgeFrom, mileAgeTo } = action.payload;
+      let filtered = state.items;
+
+      if (brand) {
+        filtered = filtered.filter((p) => p.brand === brand);
+      }
+
+      if (price) {
+        filtered = filtered.filter(
+          (p) => Number(p.rentalPrice) === Number(price)
+        );
+      }
+
+      if (mileAgeFrom) {
+        filtered = filtered.filter(
+          (p) => Number(p.mileage) >= Number(mileAgeFrom)
+        );
+        console.log("mileAgeFrom:", mileAgeFrom);
+      }
+
+      if (mileAgeTo) {
+        filtered = filtered.filter(
+          (p) => Number(p.mileage) <= Number(mileAgeTo)
+        );
+      }
+      state.filteredItems = filtered;
+    },
+  },
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchCars.pending, (state) => {
-        state.isLoading = true;
+        state.status = "loading";
         state.error = null;
       })
       .addCase(fetchCars.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.items = action.payload;
+        state.status = "succeeded";
+        console.log(action.payload);
+        state.items = [...action.payload.cars];
+        console.log("Ответ от сервера:", action.payload);
+        state.filteredItems = action.payload;
       })
       .addCase(fetchCars.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
+        state.status = "failed";
+        state.error = action.error.message;
       });
   },
 });
 
-// export const { showCarsList } = slice.actions;
+export const { filterCars } = carsSlice.actions;
 export const carsReducer = carsSlice.reducer;
-
-// export const selectFilteredContacts = createSelector(
-//     [selectContacts, selectNameFilter],
-//     (contacts, nameFilter) => {
-//       return contacts.filter((item) =>
-//         item.name.toLowerCase().includes(nameFilter.toLowerCase())
-//       );
-//     }
-//   );
