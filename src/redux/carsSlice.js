@@ -1,67 +1,87 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCars } from "./operations";
+import { fetchCars, fetchFilteredCars } from "./operations";
 
 const initialState = {
-  items: [],
+  allCars: [],
+  filteredCars: [],
   isLoading: false,
   error: null,
-  filteredItems: [],
-  status: "idle",
+  filters: {
+    brand: "",
+    rentalPrice: "",
+    minMileage: "",
+    maxMileage: "",
+  },
+  favorites: [],
+  isFilterApplied: false,
 };
 
 const carsSlice = createSlice({
   name: "cars",
   initialState,
   reducers: {
-    filterCars: (state, action) => {
-      const { brand, price, mileAgeFrom, mileAgeTo } = action.payload;
-      let filtered = state.items;
-
-      if (brand) {
-        filtered = filtered.filter((p) => p.brand === brand);
+    resetFilterResult: (state) => {
+      state.filteredCars = [];
+      state.isFilterApplied = false;
+    },
+    resetFilters: (state) => {
+      state.filters = {
+        brand: "",
+        rentalPrice: "",
+        minMileage: "",
+        maxMileage: "",
+      };
+      state.isFilterApplied = false;
+    },
+    setFilters: (state, action) => {
+      state.filters = { ...state.filters, ...action.payload };
+    },
+    toggleFavorite: (state, action) => {
+      const carId = action.payload;
+      const index = state.favorites.indexOf(carId);
+      if (index === -1) {
+        state.favorites.push(carId);
+      } else {
+        state.favorites.splice(index, 1);
       }
-
-      if (price) {
-        filtered = filtered.filter(
-          (p) => Number(p.rentalPrice) === Number(price)
-        );
-      }
-
-      if (mileAgeFrom) {
-        filtered = filtered.filter(
-          (p) => Number(p.mileage) >= Number(mileAgeFrom)
-        );
-        console.log("mileAgeFrom:", mileAgeFrom);
-      }
-
-      if (mileAgeTo) {
-        filtered = filtered.filter(
-          (p) => Number(p.mileage) <= Number(mileAgeTo)
-        );
-      }
-      state.filteredItems = filtered;
     },
   },
 
   extraReducers: (builder) => {
     builder
       .addCase(fetchCars.pending, (state) => {
-        state.status = "loading";
+        state.isLoading = true;
         state.error = null;
       })
       .addCase(fetchCars.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.isLoading = false;
         console.log(action.payload);
-        state.items = [...action.payload.cars];
+        state.allCars = [...action.payload.cars];
         console.log("Ответ от сервера:", action.payload);
-        state.filteredItems = action.payload;
+        // state.filteredItems = action.payload;
       })
       .addCase(fetchCars.rejected, (state, action) => {
-        state.status = "failed";
+        state.isLoading = false;
         state.error = action.error.message;
+      })
+      .addCase(fetchFilteredCars.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.isFilterApplied = true;
+        state.filteredCars = [];
+      })
+      .addCase(fetchFilteredCars.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.filteredCars = [...action.payload.cars];
+        console.log("Фильтр ответ от сервера:", action.payload.cars);
+      })
+      .addCase(fetchFilteredCars.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || action.error.message;
       });
   },
 });
 
-export const { filterCars } = carsSlice.actions;
+export const { resetFilterResult, resetFilters, setFilters, toggleFavorite } =
+  carsSlice.actions;
 export const carsReducer = carsSlice.reducer;

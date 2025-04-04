@@ -15,3 +15,26 @@ export const fetchCars = createAsyncThunk(
     }
   }
 );
+
+export const fetchFilteredCars = createAsyncThunk(
+  "cars/fetchFiltered",
+  async (filters, { rejectWithValue }) => {
+    try {
+      const params = new URLSearchParams();
+
+      if (filters.brand) params.append("brand", filters.brand);
+      if (filters.rentalPrice)
+        params.append("rentalPrice", filters.rentalPrice);
+      if (filters.minMileage) params.append("minMileage", filters.minMileage);
+      if (filters.maxMileage) params.append("maxMileage", filters.maxMileage);
+
+      console.log("Параметры фильтра:", params.toString());
+      const response = await axios.get(`/cars?${params.toString()}`);
+      console.log("Ответ сервера с фильтрацией:", response.data);
+      return response.data;
+    } catch (err) {
+      console.error("Filter error:", err);
+      return rejectWithValue(err.message);
+    }
+  }
+);

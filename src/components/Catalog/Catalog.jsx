@@ -2,53 +2,38 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCars } from "../../redux/operations";
 import { FilterForm } from "../FilterForm/FilterForm";
-import { selectCars, selectFilteredCars } from "../../redux/selectors";
+import {
+  selectAllCars,
+  selectFilteredCars,
+  selectIsFilterApplied,
+  selectIsLoading,
+} from "../../redux/selectors";
 import style from "./Catalog.module.css";
 import { Link } from "react-router-dom";
 
 export const Catalog = () => {
   const dispatch = useDispatch();
-  const cars = useSelector(selectCars);
+  const cars = useSelector(selectAllCars);
   const filteredCars = useSelector(selectFilteredCars);
+  const isFilterApplied = useSelector(selectIsFilterApplied);
+  const isLoading = useSelector(selectIsLoading);
   console.log("cars:", cars);
-  console.log("filteredCars:", filteredCars);
+
+  const carsToShow = isFilterApplied ? filteredCars : cars;
 
   useEffect(() => {
     dispatch(fetchCars());
   }, [dispatch]);
 
-  // const carsToShow = filteredCars.length > 0 ? filteredCars : cars;
-  // const carsToShow =
-  //   filteredCars.length > 0
-  //     ? filteredCars
-  //     : filteredCars.length === 0 && cars.length > 0
-  //     ? []
-  //     : cars;
-
-  // console.log("cars:", cars);
-  // console.log("filteredCars:", filteredCars);
-  // console.log("carsToShow:", carsToShow);
-
-  // if (!cars || !filteredCars) {
-  //   console.log("Данные ещё загружаются...");
-
-  //   console.log("cars length:", cars.length);
-  //   if (cars.length === 0) {
-  //     console.log("Данные ещё не загружены!");
-  //   }
-  // }
-
-  const hasCars = cars.length > 0;
-  const hasFilteredCars = filteredCars.length > 0;
-  const isFilterApplied = filteredCars !== cars;
-
-  const carsToShow = filteredCars.length > 0 ? filteredCars : cars;
-
   let content;
-  if (!hasCars) {
-    content = <p>Loading cars...</p>;
-  } else if (isFilterApplied && !hasFilteredCars) {
-    content = <p>Not found cars...</p>;
+  if (isLoading) {
+    content = <p className={style.message}>Loading cars...</p>;
+  } else if (cars.length === 0) {
+    // Якщо немає машин взагалі (перше завантаження)
+    content = <p className={style.message}>No cars available</p>;
+  } else if (isFilterApplied && filteredCars.length === 0) {
+    // Якщо фільтр застосовано, але нічого не знайдено
+    content = <p className={style.message}>No cars match your filters</p>;
   } else {
     content = carsToShow.map((car) => (
       <li key={car.id} className={style.liBox}>
