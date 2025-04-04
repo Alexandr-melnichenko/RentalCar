@@ -1,72 +1,72 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchCars } from "../../redux/operations";
-// import { selectFilteredContacts } from "../../redux/contactsSlice";
+import { FilterForm } from "../FilterForm/FilterForm";
+import {
+  selectAllCars,
+  selectFilteredCars,
+  selectIsFilterApplied,
+  selectIsLoading,
+} from "../../redux/selectors";
+import style from "./Catalog.module.css";
+import { Link } from "react-router-dom";
 
 export const Catalog = () => {
-  //   const filteredCars = useSelector(selectFilteredCars);
   const dispatch = useDispatch();
+  const cars = useSelector(selectAllCars);
+  const filteredCars = useSelector(selectFilteredCars);
+  const isFilterApplied = useSelector(selectIsFilterApplied);
+  const isLoading = useSelector(selectIsLoading);
+  console.log("cars:", cars);
+
+  const carsToShow = isFilterApplied ? filteredCars : cars;
 
   useEffect(() => {
     dispatch(fetchCars());
   }, [dispatch]);
 
+  let content;
+  if (isLoading) {
+    content = <p className={style.message}>Loading cars...</p>;
+  } else if (cars.length === 0) {
+    // Якщо немає машин взагалі (перше завантаження)
+    content = <p className={style.message}>No cars available</p>;
+  } else if (isFilterApplied && filteredCars.length === 0) {
+    // Якщо фільтр застосовано, але нічого не знайдено
+    content = <p className={style.message}>No cars match your filters</p>;
+  } else {
+    content = carsToShow.map((car) => (
+      <li key={car.id} className={style.liBox}>
+        <img src={car.img} alt={car.model} className={style.img} />
+        <div className={style.titleBox}>
+          <p className={style.title}>
+            {car.brand} <span className={style.blueTitle}>{car.model}</span>, (
+            {car.year})
+          </p>
+          <p className={style.title}>${car.rentalPrice}</p>
+        </div>
+
+        <div className={style.grayTextBox}>
+          <p className={style.grayText}>
+            {car.address.split(/,\s*/).slice(-2).join(" | ")} |{" "}
+            {car.rentalCompany} |
+          </p>
+          <p className={style.grayText}>
+            {car.type} | {car.mileage}km |
+          </p>
+        </div>
+
+        <Link to={`/catalog/${car.id}`} className={style.btn}>
+          Read more
+        </Link>
+      </li>
+    ));
+  }
+
   return (
-    <ul>
-      <li></li>
-    </ul>
+    <div>
+      <FilterForm />
+      <ul className={style.ulWrapper}>{content}</ul>
+    </div>
   );
 };
-
-// <ul className={s.listContact}>
-//   {filteredContacts.map((contact) => (
-//     <li key={contact.id}>
-//       <Contact contact={contact} />
-//     </li>
-//   ))}
-// </ul>
-
-// const MovieList = ({ films }) => {
-//     const location = useLocation();
-//     console.log('Location:', location);
-//     console.log('films:', films);
-
-//     return (
-//       <ul className={style.movieList}>
-//         {films.map(film => {
-//           const imgUrl = film.poster_path
-//             ? `${IMG_BASE_URL}/w185${film.poster_path}`
-//             : null;
-
-//           return (
-//             <li className={style.movieListItem} key={film.id}>
-//               <Link
-//                 to={`/movies/${film.id}`}
-//                 // state={{ from: `${location.pathname}${location.search}` }}
-//                 state={location}
-//               >
-//                 {imgUrl ? (
-//                   <img src={imgUrl} alt={`${film.name}`} />
-//                 ) : (
-//                   <img
-//                     width="185px"
-//                     src={imgNotAvailable}
-//                     alt={`Image not available`}
-//                   />
-//                 )}
-//                 <p className={style.title}>{film.title}</p>
-//                 <p className={style.rating}>
-//                   {film.release_date.split('-')[0]} year
-//                 </p>
-//                 <p className={style.rating}>
-//                   Rating: {film.vote_average.toFixed(1)} / {film.vote_count}
-//                 </p>
-//               </Link>
-//             </li>
-//           );
-//         })}
-//       </ul>
-//     );
-//   };
-
-//   export default MovieList;

@@ -1,0 +1,73 @@
+.ulWrapper {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 32px;
+  row-gap: 48px;
+  padding: 0;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.liBox {
+  border: none;
+  padding: 0;
+}
+
+.img {
+  width: 100%;
+  max-width: 276px;
+  height: 268px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.btn {
+  width: 100%;
+  height: 44px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3470ff;
+  color: #fff;
+  font-size: 16px;
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.titleBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 16px;
+  padding-bottom: 8px;
+  padding-right: 12px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+  margin: 0;
+}
+
+.blueTitle {
+  color: #3470ff;
+  margin: 0;
+}
+
+.grayText {
+  font-size: 12px;
+  color: gray;
+  margin: 0;
+  padding: 0;
+}
+
+.grayTextBox {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+}
