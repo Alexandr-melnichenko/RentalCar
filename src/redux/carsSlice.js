@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCars, fetchFilteredCars } from "./operations";
+import { fetchCars, fetchFilteredCars, fetchSelectedCar } from "./operations";
 
 const initialState = {
   allCars: [],
@@ -14,6 +14,7 @@ const initialState = {
   },
   favorites: [],
   isFilterApplied: false,
+  selectedCar: {},
 };
 
 const carsSlice = createSlice({
@@ -76,6 +77,19 @@ const carsSlice = createSlice({
         console.log("Фильтр ответ от сервера:", action.payload.cars);
       })
       .addCase(fetchFilteredCars.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || action.error.message;
+      })
+      .addCase(fetchSelectedCar.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchSelectedCar.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.selectedCar = action.payload;
+        console.log("Selected car response:", action.payload);
+      })
+      .addCase(fetchSelectedCar.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload || action.error.message;
       });
