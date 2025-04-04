@@ -36,11 +36,24 @@ export const CardPage = () => {
   return (
     <div>
       <Header />
-      <img
-        src={carPhoto}
-        alt={`${car.brand} ${car.model}`}
-        className={style.carImage} // Опционально: если используете CSS-модули
-      />
+      <div className={style.container}>
+        <div className={style.firstColumn}>
+          <img
+            src={carPhoto}
+            alt={`${car.brand} ${car.model}`}
+            className={style.carImage} // Опционально: если используете CSS-модули
+          />
+          <div className={style.formBox}>{/* <CardForm/> */}</div>
+        </div>
+        <div className={style.secondColumn}>
+          <div className={style.titleBlock}></div>
+          <div className={style.threeBox}>
+            <div className={style.rentalBlock}></div>
+            <div className={style.carBlock}></div>
+            <div className={style.accessoriesBlock}></div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

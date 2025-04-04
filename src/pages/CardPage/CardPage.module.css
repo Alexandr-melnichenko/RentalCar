@@ -1,0 +1,73 @@
+.carImage {
+  width: 640px;
+  height: 512px;
+  border-radius: 14px;
+  border: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 72px;
+  padding: 84px 120px 104px;
+}
+
+.firstColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.formBox {
+  display: flex;
+  width: 640px;
+  border: 1px solid gray;
+  border-radius: 6px;
+  height: 512px;
+}
+
+.secondColumn {
+  display: flex;
+  flex-direction: column;
+  width: 640px;
+  height: auto;
+  gap: 68px;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 250px;
+  border: 1px solid lightgray;
+}
+
+.rentalBlock {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 250px;
+  border: 1px solid lightgray;
+}
+
+.carBlock {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 250px;
+  border: 1px solid lightgray;
+}
+
+.accessoriesBlock {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 250px;
+  border: 1px solid lightgray;
+}
+
+.threeBox {
+  display: flex;
+  flex-direction: column;
+  gap: 110px;
+}
