@@ -1,6 +1,6 @@
 // import { CarCard } from "../../components/CarCard/CarCard";
 // import { CardDescription } from "../../components/CardDescription/CardDescription";
-// import { CardForm } from "../../components/CardForm/CardForm";
+import { CardForm } from "../../components/CardForm/CardForm";
 import { Header } from "../../components/Header/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCar } from "../../redux/selectors";
@@ -66,7 +66,9 @@ export const CardPage = () => {
             alt={`${car.brand} ${car.model}`}
             className={style.carImage} // Опционально: если используете CSS-модули
           />
-          <div className={style.formBox}>{/* <CardForm/> */}</div>
+          <div className={style.formBox}>
+            <CardForm />
+          </div>
         </div>
         <div className={style.secondColumn}>
           <div className={style.titleBlock}>
