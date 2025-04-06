@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-// import { setTotalPages } from "./carsSlice";
+
 
 axios.defaults.baseURL = "https://car-rental-api.goit.global";
 

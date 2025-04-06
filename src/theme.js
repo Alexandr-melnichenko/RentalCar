@@ -5,13 +5,13 @@ const theme = createTheme({
     fontFamily: '"Manrope", sans-serif',
     h5: {
       fontSize: "20px",
-      fontWeight: 600, // semibold (Manrope uses 600 for semibold)
+      fontWeight: 600,
       color: "#101828",
       textAlign: "left",
     },
     subtitle1: {
       fontSize: "16px",
-      fontWeight: 500, // medium (Manrope uses 500 for medium)
+      fontWeight: 500,
       color: "#8D929A",
       textAlign: "left",
     },
@@ -28,7 +28,7 @@ const theme = createTheme({
           border: "none",
           borderRadius: "8px",
           padding: "12px 24px",
-          fontWeight: 500, // Medium weight
+          fontWeight: 500,
           textTransform: "none",
         },
       },

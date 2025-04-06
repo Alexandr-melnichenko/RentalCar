@@ -5,8 +5,6 @@ import { CatalogPage } from "./pages/CatalogPage/CatalogPage";
 import { CardPage } from "./pages/CardPage/CardPage";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
-// import { useEffect } from "react";
-// import { useDispatch } from "react-redux";
 
 function App() {
   return (
