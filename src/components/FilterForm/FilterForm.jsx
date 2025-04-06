@@ -4,18 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectAllCars } from "../../redux/selectors";
 import style from "./FilterForm.module.css";
 import { fetchFilteredCars } from "../../redux/operations";
-// import { resetFilterResult } from "../../redux/carsSlice";
-
-// const validationSchema = Yup.object().shape({
-//   mileageFrom: Yup.number()
-//     .min(0, "Mileage cannot be negative")
-//     .nullable()
-//     .transform((value) => (isNaN(value) ? null : value)),
-//   mileageTo: Yup.number()
-//     .min(Yup.ref("mileageFrom"), "Max mileage must be greater than min mileage")
-//     .nullable()
-//     .transform((value) => (isNaN(value) ? null : value)),
-// });
 
 export const FilterForm = () => {
   const dispatch = useDispatch();
@@ -29,18 +17,13 @@ export const FilterForm = () => {
 
   const handleSubmit = (values, { setSubmitting }) => {
     console.log("Form values:", values);
-    // Prepare filters object
+
     const filters = {
       brand: values.brand || undefined,
       rentalPrice: values.rentalPrice || undefined,
       minMileage: values.minMileage || undefined,
       maxMileage: values.maxMileage || undefined,
     };
-    console.log("Filters prepared:", filters);
-    // Reset previous results before new filtering
-    // dispatch(resetFilterResult());
-
-    // Dispatch filtered cars fetch
     dispatch(fetchFilteredCars(filters)).finally(() => setSubmitting(false));
   };
 

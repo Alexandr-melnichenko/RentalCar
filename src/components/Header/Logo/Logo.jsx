@@ -4,7 +4,9 @@ import style from "./Logo.module.css";
 export const Logo = () => {
   return (
     <NavLink to="/" className={style.logo}>
-      Rental<span className={style.logoRed}>Car</span>
+      <svg className={style.iconLogo}>
+        <use xlinkHref="/sprite.svg#icon-Logo"></use>
+      </svg>
     </NavLink>
   );
 };

@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { FavoriteButton } from "../FavoriteButton/FavoriteButton";
 import { LoadMoreBtn } from "../LoadMoreBtn/LoadMoreBtn";
 import { resetPagination } from "../../redux/carsSlice";
+import { CenteredCubeLoader } from "../CubeLoader/CubeLoader";
 
 export const Catalog = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,6 @@ export const Catalog = () => {
   const isFilterApplied = useSelector(selectIsFilterApplied);
   const isLoading = useSelector(selectIsLoading);
   const favorites = useSelector(selectFavorites);
-  // const currentPage = useSelector(selectCurrentPage);
   const hasMore = useSelector(selectHasMore);
 
   console.log("cars:", cars);
@@ -44,7 +44,7 @@ export const Catalog = () => {
 
   let content;
   if (isLoading) {
-    content = <p className={style.message}>Loading cars...</p>;
+    content = <CenteredCubeLoader />;
   } else if (cars.length === 0) {
     // Якщо немає машин взагалі (перше завантаження)
     content = <p className={style.message}>No cars available</p>;
