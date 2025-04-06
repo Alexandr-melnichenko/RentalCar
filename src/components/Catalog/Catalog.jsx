@@ -1,17 +1,21 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCars } from "../../redux/operations";
+import { fetchCars, fetchMoreCars } from "../../redux/operations";
 import { FilterForm } from "../FilterForm/FilterForm";
 import {
   selectAllCars,
+  // selectCurrentPage,
   selectFavorites,
   selectFilteredCars,
+  selectHasMore,
   selectIsFilterApplied,
   selectIsLoading,
 } from "../../redux/selectors";
 import style from "./Catalog.module.css";
 import { Link } from "react-router-dom";
 import { FavoriteButton } from "../FavoriteButton/FavoriteButton";
+import { LoadMoreBtn } from "../LoadMoreBtn/LoadMoreBtn";
+import { resetPagination } from "../../redux/carsSlice";
 
 export const Catalog = () => {
   const dispatch = useDispatch();
@@ -20,13 +24,23 @@ export const Catalog = () => {
   const isFilterApplied = useSelector(selectIsFilterApplied);
   const isLoading = useSelector(selectIsLoading);
   const favorites = useSelector(selectFavorites);
+  // const currentPage = useSelector(selectCurrentPage);
+  const hasMore = useSelector(selectHasMore);
+
   console.log("cars:", cars);
 
   const carsToShow = isFilterApplied ? filteredCars : cars;
 
   useEffect(() => {
+    dispatch(resetPagination());
     dispatch(fetchCars());
   }, [dispatch]);
+
+  const handleLoadMore = () => {
+    if (hasMore && !isLoading) {
+      dispatch(fetchMoreCars());
+    }
+  };
 
   let content;
   if (isLoading) {
@@ -74,9 +88,12 @@ export const Catalog = () => {
   }
 
   return (
-    <div>
+    <div className={style.catalogWrapper}>
       <FilterForm />
       <ul className={style.ulWrapper}>{content}</ul>
+      {hasMore && !isLoading && (
+        <LoadMoreBtn onClick={handleLoadMore} isLoading={isLoading} />
+      )}
     </div>
   );
 };

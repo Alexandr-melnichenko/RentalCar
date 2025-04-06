@@ -7,3 +7,5 @@ export const selectError = (state) => state.cars.error;
 export const selectIsFilterApplied = (state) => state.cars.isFilterApplied;
 export const selectCar = (state) => state.cars.selectedCar;
 export const selectFavorites = (state) => state.favorites.items;
+export const selectCurrentPage = (state) => state.cars.currentPage;
+export const selectHasMore = (state) => state.cars.hasMore;
