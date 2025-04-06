@@ -56,4 +56,41 @@
   align-items: center;
   justify-content: center;
   font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.btnSearch:hover,
+.btnSearch:focus {
+  color: #fff;
+  background-color: #0b44cd;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.error {
+  color: #ff0000;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.errorField {
+  border: 1px solid #ff0000 !important;
+}
+
+.mileageInputContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.blockMileAge {
+  display: flex;
+  gap: 8px;
+}
+
+.fieldMileAge {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
 }

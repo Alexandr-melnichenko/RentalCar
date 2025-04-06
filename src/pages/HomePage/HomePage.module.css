@@ -1,0 +1,16 @@
+.homePage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+.header {
+  flex-shrink: 0;
+}
+
+.hero {
+  flex-grow: 1;
+  position: relative;
+  min-height: calc(100vh - 80px);
+}

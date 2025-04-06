@@ -43,6 +43,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btn:hover,
+.btn:focus {
+  color: #fff;
+  background-color: #0b44cd;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .titleBox {
@@ -57,7 +66,7 @@
 .title {
   font-size: 16px;
   font-weight: 500;
-  color: black;
+  color: #101828;
   margin: 0;
 }
 
