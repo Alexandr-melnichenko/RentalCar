@@ -11,13 +11,12 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { carsReducer } from "./carsSlice";
-// import { favoriteReducer } from "./favoriteSlice";
 import { favoritesReducer } from "./favorites/favoritesReducer";
 
 const carsPersistConfig = {
   key: "cars",
   storage,
-  whitelist: ["allCars", "selectedCar"], // Сохраняем только эти поля
+  whitelist: ["allCars", "selectedCar"],
   blacklist: [
     "currentPage",
     "hasMore",
@@ -25,7 +24,7 @@ const carsPersistConfig = {
     "filters",
     "isFilterApplied",
     "filteredCars",
-  ], // Явно исключаем
+  ],
 };
 
 const persistedCarsReducer = persistReducer(carsPersistConfig, carsReducer);
