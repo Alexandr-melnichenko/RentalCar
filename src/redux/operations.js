@@ -38,3 +38,17 @@ export const fetchFilteredCars = createAsyncThunk(
     }
   }
 );
+
+export const fetchSelectedCar = createAsyncThunk(
+  "cars/fetchSelected",
+  async (carId, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`/cars/${carId}`);
+      console.log("Ответ сервера с carId:", response.data);
+      return response.data;
+    } catch (err) {
+      console.error("CarId error:", err);
+      return rejectWithValue(err.message);
+    }
+  }
+);
