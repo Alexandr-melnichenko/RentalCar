@@ -58,6 +58,7 @@ export const CardPage = () => {
             alt={`${car.brand} ${car.model}`}
             className={style.carImage} // Опционально: если используете CSS-модули
           />
+          <CardForm />
         </div>
 
         <div className={style.secondColumn}>

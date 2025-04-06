@@ -12,11 +12,6 @@ const favoritesSlice = createSlice({
     removeFromFavorites: (state, action) => {
       state.items = state.items.filter((car) => car.id !== action.payload);
     },
-    loadFavorites: (state) => {
-      const savedFavorites =
-        JSON.parse(localStorage.getItem("favorites")) || [];
-      state.items = savedFavorites;
-    },
   },
 });
 

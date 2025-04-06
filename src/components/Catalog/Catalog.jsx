@@ -12,7 +12,6 @@ import {
 import style from "./Catalog.module.css";
 import { Link } from "react-router-dom";
 import { FavoriteButton } from "../FavoriteButton/FavoriteButton";
-import { loadFavorites } from "../../redux/favorites/favoritesReducer";
 
 export const Catalog = () => {
   const dispatch = useDispatch();
@@ -27,7 +26,6 @@ export const Catalog = () => {
 
   useEffect(() => {
     dispatch(fetchCars());
-    dispatch(loadFavorites());
   }, [dispatch]);
 
   let content;

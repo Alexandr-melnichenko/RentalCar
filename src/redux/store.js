@@ -17,7 +17,8 @@ import { favoritesReducer } from "./favorites/favoritesReducer";
 const carsPersistConfig = {
   key: "cars",
   storage,
-  whitelist: ["token", "carsData"],
+  whitelist: ["allCars", "selectedCar"], // Сохраняем только эти поля
+  blacklist: ["filters", "isFilterApplied", "filteredCars"], // Явно исключаем
 };
 
 const persistedCarsReducer = persistReducer(carsPersistConfig, carsReducer);
@@ -25,6 +26,7 @@ const persistedCarsReducer = persistReducer(carsPersistConfig, carsReducer);
 const favoritePersistConfig = {
   key: "favorites",
   storage,
+  whitelist: ["items"],
 };
 
 const persistedFavoritesReducer = persistReducer(
