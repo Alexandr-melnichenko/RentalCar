@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+// import { setTotalPages } from "./carsSlice";
 
 axios.defaults.baseURL = "https://car-rental-api.goit.global";
 
@@ -7,8 +8,11 @@ export const fetchCars = createAsyncThunk(
   "cars/fetchAll",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get("/cars");
-      return response.data;
+      const response = await axios.get("/cars?page=1");
+      return {
+        cars: response.data.cars,
+        totalPages: response.data.totalPages,
+      };
     } catch (error) {
       console.error("Error fetching cars:", error.message);
       return thunkAPI.rejectWithValue(error.message);
@@ -49,6 +53,23 @@ export const fetchSelectedCar = createAsyncThunk(
     } catch (err) {
       console.error("CarId error:", err);
       return rejectWithValue(err.message);
+    }
+  }
+);
+
+export const fetchMoreCars = createAsyncThunk(
+  "cars/fetchMore",
+  async (page, { rejectWithValue, getState }) => {
+    try {
+      const { cars } = getState();
+      const nextPage = cars.currentPage + 1;
+      const response = await axios.get(`/cars?page=${nextPage}`);
+      return {
+        cars: response.data.cars,
+        page: nextPage,
+      };
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   }
 );

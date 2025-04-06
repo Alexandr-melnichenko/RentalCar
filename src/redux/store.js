@@ -18,7 +18,14 @@ const carsPersistConfig = {
   key: "cars",
   storage,
   whitelist: ["allCars", "selectedCar"], // Сохраняем только эти поля
-  blacklist: ["filters", "isFilterApplied", "filteredCars"], // Явно исключаем
+  blacklist: [
+    "currentPage",
+    "hasMore",
+    "totalPages",
+    "filters",
+    "isFilterApplied",
+    "filteredCars",
+  ], // Явно исключаем
 };
 
 const persistedCarsReducer = persistReducer(carsPersistConfig, carsReducer);

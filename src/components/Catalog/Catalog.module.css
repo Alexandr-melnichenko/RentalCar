@@ -1,3 +1,11 @@
+.catalogWrapper {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 124px;
+  padding-top: 84px;
+  align-items: center;
+}
+
 .ulWrapper {
   list-style: none;
   display: flex;

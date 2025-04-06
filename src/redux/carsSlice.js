@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCars, fetchFilteredCars, fetchSelectedCar } from "./operations";
+import {
+  fetchCars,
+  fetchFilteredCars,
+  fetchMoreCars,
+  fetchSelectedCar,
+} from "./operations";
 
 const initialState = {
   allCars: [],
@@ -14,6 +19,9 @@ const initialState = {
   },
   isFilterApplied: false,
   selectedCar: {},
+  currentPage: 1,
+  totalPages: 1,
+  hasMore: true,
 };
 
 const carsSlice = createSlice({
@@ -45,6 +53,14 @@ const carsSlice = createSlice({
         state.favorites.splice(index, 1);
       }
     },
+    resetPagination: (state) => {
+      state.currentPage = 1;
+      state.hasMore = true;
+    },
+    setTotalPages: (state, action) => {
+      state.totalPages = action.payload;
+      state.hasMore = state.currentPage < action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -56,9 +72,13 @@ const carsSlice = createSlice({
       .addCase(fetchCars.fulfilled, (state, action) => {
         state.isLoading = false;
         console.log(action.payload);
-        state.allCars = [...action.payload.cars];
+        state.allCars =
+          state.currentPage === 1
+            ? [...action.payload.cars]
+            : [...state.allCars, action.payload.cars];
+        state.hasMore = action.payload.cars.length > 0;
+        state.totalPages = action.payload.totalPages;
         console.log("Ответ от сервера:", action.payload);
-        // state.filteredItems = action.payload;
       })
       .addCase(fetchCars.rejected, (state, action) => {
         state.isLoading = false;
@@ -91,10 +111,31 @@ const carsSlice = createSlice({
       .addCase(fetchSelectedCar.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload || action.error.message;
+      })
+      .addCase(fetchMoreCars.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchMoreCars.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.allCars = [...state.allCars, ...action.payload.cars];
+        state.currentPage += 1;
+        state.hasMore =
+          action.payload.cars.length > 0 &&
+          state.currentPage < state.totalPages;
+      })
+      .addCase(fetchMoreCars.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
 
-export const { resetFilterResult, resetFilters, setFilters, toggleFavorite } =
-  carsSlice.actions;
+export const {
+  resetFilterResult,
+  resetFilters,
+  setFilters,
+  toggleFavorite,
+  resetPagination,
+  setTotalPages,
+} = carsSlice.actions;
 export const carsReducer = carsSlice.reducer;

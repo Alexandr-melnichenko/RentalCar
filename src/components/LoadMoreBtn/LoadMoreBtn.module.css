@@ -1,0 +1,17 @@
+.btnBox {
+  padding: 0;
+  margin-top: 80px;
+}
+
+.btnLoadMore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 156 px !important;
+  height: 44px;
+  border: 1px solid #3470ff;
+  border-radius: 12px;
+  background-color: white;
+  color: #101828;
+  font-size: 16px;
+}
