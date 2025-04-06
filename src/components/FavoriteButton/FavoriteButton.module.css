@@ -1,0 +1,30 @@
+.favoriteButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.favoriteButton.active {
+  color: #ff4444;
+}
+
+.favoriteButton:hover {
+  background: blue;
+  transform: scale(1.1);
+}
+
+.icons {
+  width: 16px;
+  height: 16px;
+  stroke: white;
+  fill: aqua;
+}

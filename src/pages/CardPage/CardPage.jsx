@@ -1,5 +1,3 @@
-// import { CarCard } from "../../components/CarCard/CarCard";
-// import { CardDescription } from "../../components/CardDescription/CardDescription";
 import { CardForm } from "../../components/CardForm/CardForm";
 import { Header } from "../../components/Header/Header";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,8 +11,6 @@ export const CardPage = () => {
   const { id } = useParams();
   console.log("id from useParams:", id);
   const dispatch = useDispatch();
-  // const car = useSelector((state) => selectCar(state, id)); // Передаём carId в селектор
-  // console.log("Car data in CarCard:", car);
   console.log("useParams() result:", useParams());
 
   useEffect(() => {
@@ -32,7 +28,6 @@ export const CardPage = () => {
   if (!car || Object.keys(car).length === 0) return <div>Loading...</div>;
 
   const carPhoto = car?.img || "";
-  // const carPhoto = car.img;
 
   // Дістаємо айді із урла картинки
   function extractDigitsFromUrl(url) {
@@ -47,9 +42,6 @@ export const CardPage = () => {
   }
 
   const digits = extractDigitsFromUrl(carPhoto);
-  // const conditions = car.rentalConditions;
-  // const accessories = car.accessories;
-  // const functionalities = car.functionalities;
 
   const conditions = car?.rentalConditions || [];
   const accessories = car?.accessories || [];
@@ -66,10 +58,8 @@ export const CardPage = () => {
             alt={`${car.brand} ${car.model}`}
             className={style.carImage} // Опционально: если используете CSS-модули
           />
-          {/* <div className={style.formBox}> */}
-          <CardForm />
-          {/* </div> */}
         </div>
+
         <div className={style.secondColumn}>
           <div className={style.titleBlock}>
             <div className={style.titleBox}>
@@ -92,9 +82,12 @@ export const CardPage = () => {
             <div className={style.rentalBlock}>
               <h3 className={style.subTitle}>Rental Conditions:</h3>
               <ul className={style.list}>
-                {conditions.map((condition) => {
+                {conditions.map((condition, index) => {
                   return (
-                    <li key={condition.index} className={style.listItem}>
+                    <li
+                      key={`${condition}-${index}`}
+                      className={style.listItem}
+                    >
                       <svg className={style.icons}>
                         <use xlinkHref="/sprite.svg#icon-check-circle"></use>
                       </svg>
@@ -139,9 +132,9 @@ export const CardPage = () => {
                 Accessories and functionalities:
               </h3>
               <ul className={style.list}>
-                {accesAndFuncs.map((accessor) => {
+                {accesAndFuncs.map((accessor, index) => {
                   return (
-                    <li key={accessor.index} className={style.listItem}>
+                    <li key={`${accessor}-${index}`} className={style.listItem}>
                       <svg className={style.icons}>
                         <use xlinkHref="/sprite.svg#icon-check-circle"></use>
                       </svg>
