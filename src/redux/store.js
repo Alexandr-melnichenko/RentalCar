@@ -11,31 +11,33 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { carsReducer } from "./carsSlice";
-import { favoriteReducer } from "./favoriteSlice";
+// import { favoriteReducer } from "./favoriteSlice";
+import { favoritesReducer } from "./favorites/favoritesReducer";
 
 const carsPersistConfig = {
   key: "cars",
   storage,
-  whitelist: ["token", "carsData"],
+  whitelist: ["allCars", "selectedCar"], // Сохраняем только эти поля
+  blacklist: ["filters", "isFilterApplied", "filteredCars"], // Явно исключаем
 };
 
 const persistedCarsReducer = persistReducer(carsPersistConfig, carsReducer);
 
 const favoritePersistConfig = {
-  key: "favorite",
+  key: "favorites",
   storage,
-  whitelist: ["token", "favoriteData"],
+  whitelist: ["items"],
 };
 
-const persistedFavoriteReducer = persistReducer(
+const persistedFavoritesReducer = persistReducer(
   favoritePersistConfig,
-  favoriteReducer
+  favoritesReducer
 );
 
 export const store = configureStore({
   reducer: {
     cars: persistedCarsReducer,
-    favorite: persistedFavoriteReducer,
+    favorites: persistedFavoritesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

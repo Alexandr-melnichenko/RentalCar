@@ -1,0 +1,35 @@
+.favoriteButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* .favoriteButton:hover {
+  background: blue;
+  transform: scale(1.1);
+} */
+
+.icons {
+  padding: 0;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease, filter 0.3s ease; /* Анимация для свечения */
+}
+
+.icons:hover,
+.icons:focus {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 6px rgba(52, 112, 255, 0.5));
+}

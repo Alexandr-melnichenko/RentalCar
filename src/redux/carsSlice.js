@@ -12,7 +12,6 @@ const initialState = {
     minMileage: "",
     maxMileage: "",
   },
-  favorites: [],
   isFilterApplied: false,
   selectedCar: {},
 };
