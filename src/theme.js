@@ -24,8 +24,12 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
+          fontFamily: '"Manrope", sans-serif',
+          border: "none",
           borderRadius: "8px",
           padding: "12px 24px",
+          fontWeight: 500, // Medium weight
+          textTransform: "none",
         },
       },
     },

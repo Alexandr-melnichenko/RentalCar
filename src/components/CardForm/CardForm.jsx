@@ -1,32 +1,5 @@
-// import { Formik, Form, Field } from "formik";
-// import * as Yup from "yup";
-// import style from "./CardForm.module.css";
-// import { useDispatch, useSelector } from "react-redux";
-
-// const handleSubmit = (values, { setSubmitting }) => {
-//   return;
-// };
-
-// export const CardForm = () => {
-//   const dispatch = useDispatch();
-
-//   return (
-//     <Formik
-//       initialValues={{
-//         brand: "",
-//         rentalPrice: "",
-//         minMileage: "",
-//         maxMileage: "",
-//       }}
-//       // validationSchema={validationSchema}
-//       onSubmit={handleSubmit}
-//     ></Formik>
-//   );
-// };
-
 import { useState } from "react";
 import { useFormik } from "formik";
-// import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCar } from "../../redux/selectors";
 import { toast, ToastContainer } from "react-toastify";
@@ -36,16 +9,27 @@ import "react-datepicker/dist/react-datepicker.css";
 import {
   TextField,
   Button,
-  Container,
   Typography,
   Box,
-  TextareaAutosize,
   FormControl,
   FormHelperText,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 // Стилізовані компоненти
+
+const StyledFormContainer = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  width: "640px",
+  height: "auto",
+  backgroundColor: "#FFFFFF",
+  border: "1px solid #DADDE1",
+  borderRadius: "10px",
+  padding: "32px",
+  boxSizing: "border-box",
+});
+
 const StyledForm = styled("form")({
   display: "flex",
   flexDirection: "column",
@@ -57,19 +41,75 @@ const StyledForm = styled("form")({
   boxShadow: "0px 2px 10px rgba(0,0,0,0.1)",
 });
 
+const StyledTextField = styled(TextField)({
+  width: "100%",
+  backgroundColor: "#F7F7F7",
+  borderRadius: "12px",
+  "& .MuiOutlinedInput-root": {
+    height: "48px",
+    "& fieldset": {
+      border: "none",
+    },
+    "& input": {
+      padding: "14px 20px",
+      fontFamily: "Manrope",
+      fontSize: "16px",
+      color: "#101828",
+    },
+    "& textarea": {
+      padding: "14px 20px",
+      fontFamily: "Manrope",
+      fontSize: "16px",
+      color: "#101828",
+    },
+  },
+  "& .MuiInputLabel-root": {
+    color: "#8D929A",
+    fontFamily: "Manrope",
+    fontSize: "16px",
+  },
+});
+
+const StyledTextArea = styled(StyledTextField)({
+  "& .MuiOutlinedInput-root": {
+    height: "88px",
+  },
+});
+
+const StyledButton = styled(Button)({
+  width: "156px",
+  height: "44px",
+  backgroundColor: "#3470FF",
+  borderRadius: "12px",
+  border: "none",
+  color: "#FFFFFF",
+  fontFamily: "Manrope",
+  fontSize: "16px",
+  fontWeight: 500,
+  textTransform: "none",
+  "&:hover": {
+    backgroundColor: "#3470FF",
+  },
+});
+
 const StyledDatePicker = styled(DatePicker)({
   width: "100%",
-  padding: "16.5px 14px",
-  border: "1px solid rgba(0, 0, 0, 0.23)",
-  borderRadius: "4px",
+  height: "48px",
+  backgroundColor: "#F7F7F7",
+  borderRadius: "12px",
+  border: "none",
+  // padding: "14px 20px",
+  fontFamily: "Manrope",
   fontSize: "16px",
-  "&:hover": {
-    borderColor: "rgba(0, 0, 0, 0.87)",
+  color: "#101828",
+  paddingLeft: "20px",
+  boxSizing: "border-box",
+  "&:focus": {
+    outline: "none",
   },
 });
 
 export const CardForm = () => {
-  // const { id } = useParams();
   const car = useSelector(selectCar);
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
@@ -115,7 +155,7 @@ export const CardForm = () => {
       toast.success(
         `Booking ${car.brand} ${
           car.model
-        } from ${startDate.toLocaleDateString()} 
+        } from ${startDate.toLocaleDateString()}
         to ${endDate.toLocaleDateString()} successfully completed!`,
         {
           position: "top-center",
@@ -129,89 +169,96 @@ export const CardForm = () => {
   });
 
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h5" component="h2" gutterBottom>
-          Book your car now
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          Stay connected! We are always ready to help you.
-        </Typography>
+    <StyledFormContainer component="form" onSubmit={formik.handleSubmit}>
+      {/* Заголовок форми */}
+      <Typography
+        sx={{
+          fontWeight: 600,
+          color: "#101828",
+          fontSize: "20px",
+          textAlign: "left",
+          mb: "8px",
+        }}
+      >
+        Book your car now
+      </Typography>
 
-        <StyledForm onSubmit={formik.handleSubmit}>
-          <TextField
-            fullWidth
-            id="name"
-            name="name"
-            label="Повне ім'я"
-            variant="outlined"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            error={formik.touched.name && Boolean(formik.errors.name)}
-            helperText={formik.touched.name && formik.errors.name}
-          />
+      {/* Підзаголовок */}
+      <Typography
+        sx={{
+          fontWeight: 500,
+          color: "#8D929A",
+          fontSize: "16px",
+          textAlign: "left",
+          mb: "24px",
+        }}
+      >
+        Stay connected! We are always ready to help you.
+      </Typography>
 
-          <TextField
-            fullWidth
-            id="email"
-            name="email"
-            label="Email"
-            variant="outlined"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-          />
+      {/* Поля форми */}
+      <Box sx={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        <StyledTextField
+          id="name"
+          name="name"
+          label="Name*"
+          variant="outlined"
+          value={formik.values.name}
+          onChange={formik.handleChange}
+          error={formik.touched.name && Boolean(formik.errors.name)}
+          helperText={formik.touched.name && formik.errors.name}
+        />
 
-          <FormControl error={Boolean(formik.errors.dateRange)}>
-            <StyledDatePicker
-              selectsRange
-              startDate={startDate}
-              endDate={endDate}
-              onChange={(update) => {
-                setDateRange(update);
-                formik.setFieldTouched("dateRange", true);
-              }}
-              minDate={new Date()}
-              dateFormat="dd/MM/yyyy"
-              placeholderText="Select booking period"
-              isClearable
-            />
-            {formik.errors.dateRange && (
-              <FormHelperText>{formik.errors.dateRange}</FormHelperText>
-            )}
-          </FormControl>
-
-          <TextareaAutosize
-            id="comment"
-            name="comment"
-            placeholder="Comment (optional)"
-            minRows={4}
-            value={formik.values.comment}
-            onChange={formik.handleChange}
-            style={{
-              width: "100%",
-              padding: "16px",
-              border: "1px solid rgba(0, 0, 0, 0.23)",
-              borderRadius: "4px",
-              fontFamily: "inherit",
-              fontSize: "16px",
+        <StyledTextField
+          fullWidth
+          id="email"
+          name="email"
+          label="Email*"
+          variant="outlined"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+        />
+        <FormControl error={Boolean(formik.errors.dateRange)}>
+          <StyledDatePicker
+            selectsRange
+            startDate={startDate}
+            endDate={endDate}
+            onChange={(update) => {
+              setDateRange(update);
+              formik.setFieldTouched("dateRange", true);
             }}
+            minDate={new Date()}
+            dateFormat="dd/MM/yyyy"
+            placeholderText="Select booking period"
+            isClearable
           />
+          {formik.errors.dateRange && (
+            <FormHelperText>{formik.errors.dateRange}</FormHelperText>
+          )}
+        </FormControl>
 
-          <Button
-            type="submit"
-            variant="contained"
-            color="#3470FF"
-            size="normal"
-            disabled={formik.isSubmitting}
-          >
-            Send
-          </Button>
-        </StyledForm>
+        <StyledTextArea
+          id="comment"
+          name="comment"
+          label="Comment"
+          variant="outlined"
+          multiline
+          rows={3}
+          value={formik.values.comment}
+          onChange={formik.handleChange}
+        />
+      </Box>
+
+      {/* Кнопка */}
+      <Box sx={{ display: "flex", justifyContent: "center", mt: "24px" }}>
+        <StyledButton type="submit" variant="contained">
+          Send
+        </StyledButton>
       </Box>
 
       <ToastContainer />
-    </Container>
+    </StyledFormContainer>
   );
 };
