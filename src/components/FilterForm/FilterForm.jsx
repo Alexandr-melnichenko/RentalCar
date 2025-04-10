@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectAllCars } from "../../redux/selectors";
 import style from "./FilterForm.module.css";
 import { fetchFilteredCars } from "../../redux/operations";
+import { SelectField } from "./SelectField/SelectField";
 
 const validationSchema = Yup.object().shape({
   brand: Yup.string(),
@@ -11,6 +12,11 @@ const validationSchema = Yup.object().shape({
   minMileage: Yup.number().typeError(" ").positive(" ").integer(" "),
   maxMileage: Yup.number().typeError(" ").positive(" ").integer(" "),
 });
+
+// Функция для ручного форматирования чисел с запятыми
+const formatNumberWithCommas = (number) => {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 
 export const FilterForm = () => {
   const dispatch = useDispatch();
@@ -59,60 +65,97 @@ export const FilterForm = () => {
           <div className={style.fieldBlock}>
             <label className={style.label}>Car brand</label>
             <Field
-              as="select"
               name="brand"
+              component={SelectField}
+              options={[
+                { value: "", label: "Choose a brand" },
+                ...uniqueBrands.map((brand) => ({
+                  value: brand,
+                  label: brand,
+                })),
+              ]}
               placeholder="Choose a brand"
-              className={style.fieldSelect}
-            >
-              <option value="">Choose a brand</option>
-              {uniqueBrands.map((brand) => (
-                <option key={brand} value={brand}>
-                  {brand}
-                </option>
-              ))}
-            </Field>
+            />
           </div>
 
           <div className={style.fieldBlock}>
             <label className={style.label}>Price/1 hour</label>
             <Field
-              as="select"
               name="rentalPrice"
+              component={SelectField}
+              isPriceField={true}
+              options={[
+                { value: "", label: "Choose a price" },
+                ...uniquePrices.map((price) => ({
+                  value: price,
+                  label: price,
+                })),
+              ]}
               placeholder="Choose a price"
-              className={style.fieldSelect}
-            >
-              <option value="">Choose a price</option>
-              {uniquePrices.map((price) => (
-                <option key={price} value={price}>
-                  {price}
-                </option>
-              ))}
-            </Field>
+              formatSelectedValue={(value) => (value ? `To $${value}` : value)}
+            />
           </div>
 
           <div className={style.fieldBlock}>
             <label className={style.label}>Car mileage/km</label>
             <div className={style.blockMileAge}>
               <Field
-                type="number"
+                type="text"
                 name="minMileage"
                 placeholder="From"
                 className={style.leftFieldMileAge}
-                min="0"
+                onFocus={(e) => {
+                  e.target.value = values.minMileage || "";
+                }}
                 onBlur={(e) => {
-                  if (
-                    values.maxMileage &&
-                    +e.target.value > +values.maxMileage
-                  ) {
+                  const rawValue = e.target.value.replace(/\D/g, "");
+                  const formattedValue = rawValue
+                    ? formatNumberWithCommas(rawValue)
+                    : "";
+                  setFieldValue("minMileage", rawValue);
+                  e.target.value = formattedValue
+                    ? `From ${formattedValue}`
+                    : "";
+
+                  if (values.maxMileage && +rawValue > +values.maxMileage) {
                     setFieldValue("maxMileage", "");
                   }
                 }}
+                onChange={(e) => {
+                  const rawValue = e.target.value.replace(/\D/g, "");
+                  setFieldValue("minMileage", rawValue);
+                }}
+                value={
+                  values.minMileage
+                    ? `From ${formatNumberWithCommas(values.minMileage)}`
+                    : ""
+                }
               />
               <Field
-                type="number"
+                type="text"
                 name="maxMileage"
                 placeholder="To"
                 className={style.rightFieldMileAge}
+                onFocus={(e) => {
+                  e.target.value = values.maxMileage || "";
+                }}
+                onBlur={(e) => {
+                  const rawValue = e.target.value.replace(/\D/g, "");
+                  const formattedValue = rawValue
+                    ? formatNumberWithCommas(rawValue)
+                    : "";
+                  setFieldValue("maxMileage", rawValue);
+                  e.target.value = formattedValue ? `To ${formattedValue}` : "";
+                }}
+                onChange={(e) => {
+                  const rawValue = e.target.value.replace(/\D/g, "");
+                  setFieldValue("maxMileage", rawValue);
+                }}
+                value={
+                  values.maxMileage
+                    ? `To ${formatNumberWithCommas(values.maxMileage)}`
+                    : ""
+                }
                 min={values.minMileage || 0}
               />
             </div>

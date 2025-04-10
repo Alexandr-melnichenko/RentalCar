@@ -24,6 +24,24 @@
   color: gray;
 }
 
+/* .fieldSelect {
+  background-color: #f7f7f7;
+  border: none;
+  border-radius: 8px;
+  width: 204px;
+  height: 44px;
+  color: #101828;
+  padding: 12px 16px;
+  font-size: 16px;
+  appearance: none;
+  background-image: url("/sprite.svg#icon-arrow-down");
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  background-position: right 12px center;
+  padding-right: 30px;
+  margin-right: -8px;
+} */
+
 .fieldSelect {
   background-color: #f7f7f7;
   border: none;
@@ -33,7 +51,42 @@
   color: #101828;
   padding: 12px 16px;
   font-size: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("/icons/arrow-down.svg");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px 16px;
 }
+
+.fieldSelect:focus {
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+}
+
+/* Стилизация options (работает не во всех браузерах) */
+.fieldSelect option {
+  padding: 12px;
+  color: gray;
+  background-color: white;
+}
+
+.fieldSelect option:checked {
+  color: #101828;
+  background-color: #f9fafb;
+}
+
+/* .fieldSelect::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background: url("/sprite.svg#icon-arrow-down") no-repeat;
+  pointer-events: none;
+} */
 
 .fieldMileAge {
   background-color: #f7f7f7;
@@ -46,20 +99,7 @@
   box-sizing: border-box;
 }
 
-.rightFieldMileAge {
-  background-color: #f7f7f7;
-  border: none;
-  width: 160px;
-  height: 44px;
-  color: #101828;
-  padding: 12px 16px;
-  font-size: 16px;
-  box-sizing: border-box;
-  border-left: 1px solid lightgray;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
-
+.rightFieldMileAge,
 .leftFieldMileAge {
   background-color: #f7f7f7;
   border: none;
@@ -69,9 +109,33 @@
   padding: 12px 16px;
   font-size: 16px;
   box-sizing: border-box;
+}
+
+.rightFieldMileAge {
+  border-left: 1px solid lightgray;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.leftFieldMileAge {
   border-right: 1px solid lightgray;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
+}
+
+/* Стили для placeholder */
+.leftFieldMileAge::placeholder,
+.rightFieldMileAge::placeholder {
+  color: gray;
+  opacity: 1;
+}
+
+.rightFieldMileAge:focus,
+.leftFieldMileAge:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: lightgray;
+  background-color: #f7f7f7;
 }
 
 .btnSearch {
