@@ -46,3 +46,14 @@ h1 {
     background-color: #f9f9f9;
   }
 }
+
+/* Убираем стрелочки для числовых полей во всем приложении */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
