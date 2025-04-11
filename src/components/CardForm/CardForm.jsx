@@ -15,6 +15,7 @@ import {
   FormHelperText,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import "./datepicker-styles.css";
 
 // Стилізовані компоненти
 
@@ -47,6 +48,7 @@ const StyledTextField = styled(TextField)({
   borderRadius: "12px",
   "& .MuiOutlinedInput-root": {
     height: "48px",
+    alignItems: "center", // Добавляем выравнивание по центру
     "& fieldset": {
       border: "none",
     },
@@ -55,6 +57,18 @@ const StyledTextField = styled(TextField)({
       fontFamily: "Manrope",
       fontSize: "16px",
       color: "#101828",
+      height: "100%", // Занимаем всю высоту
+      display: "flex",
+      alignItems: "center", // Выравнивание текста по центру
+      // height: "20px", // Фиксированная высота самого input
+      "&:-webkit-autofill": {
+        // Для Chrome/Safari
+        height: "20px", // Такая же высота как у обычного input
+      },
+      "&:-webkit-autofill::first-line": {
+        // Для сохранения размера шрифта
+        fontSize: "16px",
+      },
     },
     "& textarea": {
       padding: "14px 20px",
@@ -63,10 +77,22 @@ const StyledTextField = styled(TextField)({
       color: "#101828",
     },
   },
+  // Добавляем общие стили для автозаполнения
+  "& input:-webkit-autofill": {
+    "-webkit-box-shadow": "0 0 0 1000px #F7F7F7 inset", // Сохраняем фон при автозаполнении
+    "-webkit-text-fill-color": "#101828", // Сохраняем цвет текста
+  },
   "& .MuiInputLabel-root": {
     color: "#8D929A",
     fontFamily: "Manrope",
     fontSize: "16px",
+    transform: "translate(20px, 16px) scale(1)", // Позиционирование лейбла
+    "&.Mui-focused, &.MuiFormLabel-filled": {
+      transform: "translate(14px, -10px) scale(0.75)", // Анимация при фокусе/заполнении
+    },
+  },
+  "& .MuiInputLabel-formControl": {
+    top: "-4px", // Дополнительная корректировка позиции
   },
 });
 
@@ -98,7 +124,6 @@ const StyledDatePicker = styled(DatePicker)({
   backgroundColor: "#F7F7F7",
   borderRadius: "12px",
   border: "none",
-  // padding: "14px 20px",
   fontFamily: "Manrope",
   fontSize: "16px",
   color: "#101828",
@@ -106,6 +131,19 @@ const StyledDatePicker = styled(DatePicker)({
   boxSizing: "border-box",
   "&:focus": {
     outline: "none",
+  },
+  "& .react-datepicker-wrapper": {
+    width: "100%",
+  },
+  "& .react-datepicker_input-container": {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "transparent",
+    border: "none",
+    padding: "14px, 20px",
+    "&:focus": {
+      outline: "none",
+    },
   },
 });
 
@@ -233,6 +271,11 @@ export const CardForm = () => {
             dateFormat="dd/MM/yyyy"
             placeholderText="Select booking period"
             isClearable
+            calendarClassName="custom-calendar"
+            popperClassName="custom-popper"
+            dayClassName={(date) =>
+              date >= startDate && date <= endDate ? "selected-day" : ""
+            }
           />
           {formik.errors.dateRange && (
             <FormHelperText>{formik.errors.dateRange}</FormHelperText>

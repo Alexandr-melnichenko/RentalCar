@@ -74,7 +74,11 @@ export const CardPage = () => {
                 <use xlinkHref="/sprite.svg#icon-Location"></use>
               </svg>
               &nbsp;{car.address.split(/,\s*/).slice(-2).join(", ")}
-              &nbsp;&nbsp;&nbsp;Mileage: {car.mileage} km
+              &nbsp;&nbsp;&nbsp;Mileage:{" "}
+              {typeof car.mileage === "number"
+                ? car.mileage.toLocaleString("ru-RU")
+                : car.mileage}{" "}
+              km
             </p>
             <p className={style.blueTitle}>${car.rentalPrice}</p>
             <p className={style.descriptionText}>{car.description}</p>
