@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
 axios.defaults.baseURL = "https://car-rental-api.goit.global";
 
 export const fetchCars = createAsyncThunk(
@@ -64,8 +63,13 @@ export const fetchMoreCars = createAsyncThunk(
       const { cars } = getState();
       const nextPage = cars.currentPage + 1;
       const response = await axios.get(`/cars?page=${nextPage}`);
+      const newCars = response.data.cars.filter(
+        (newCar) =>
+          !cars.allCars.some((exitingCar) => exitingCar.id === newCar.id)
+      );
+
       return {
-        cars: response.data.cars,
+        cars: newCars,
         page: nextPage,
       };
     } catch (error) {

@@ -3,7 +3,7 @@ import { Formik, Form, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllCars, selectFilteredCars } from "../../redux/selectors";
 import style from "./FilterForm.module.css";
-import { fetchFilteredCars } from "../../redux/operations";
+import { fetchCars, fetchFilteredCars } from "../../redux/operations";
 import { SelectField } from "./SelectField/SelectField";
 import {
   resetFilterResult,
@@ -57,6 +57,7 @@ export const FilterForm = () => {
     dispatch(resetFilterResult());
     dispatch(resetFilters());
     dispatch(resetPagination());
+    dispatch(fetchCars());
     resetForm({
       values: {
         brand: "",
