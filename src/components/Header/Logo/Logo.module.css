@@ -2,3 +2,13 @@
   width: 104px;
   height: 16px;
 }
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 768px) {
+  .iconLogo {
+    width: 78px;
+    height: 12px;
+  }
+}

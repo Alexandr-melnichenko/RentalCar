@@ -5,11 +5,11 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
   position: relative;
   flex-grow: 1;
   width: 100%;
   min-height: calc(100vh - var(--header-height));
+  overflow-x: hidden;
 }
 
 .contentBox {
@@ -20,7 +20,11 @@
   left: 50%;
   transform: translateX(-50%);
   align-items: center;
-  width: max-content;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .title {
@@ -28,6 +32,9 @@
   font-size: 60px;
   font-weight: 700;
   margin: 0;
+  line-height: 1.2;
+  word-break: break-word;
+  max-width: 100%;
 }
 
 .text {
@@ -39,7 +46,8 @@
 }
 
 .btn {
-  width: 276px;
+  width: 100%;
+  max-width: 276px;
   height: 44px;
   border: none;
   border-radius: 8px;
@@ -59,4 +67,16 @@
   background-color: #0b44cd;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 992px) {
+  .title {
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: clamp(28px, 8vw, 40px); /* Адаптивный размер */
+  }
 }
