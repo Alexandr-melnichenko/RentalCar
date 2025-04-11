@@ -73,10 +73,33 @@
   .title {
     font-size: 50px;
   }
+
+  .btn {
+    margin-top: 30px;
+    max-width: 240px;
+  }
+
+  .contentBox {
+    bottom: 40px;
+  }
+
+  .text {
+    font-size: 22px;
+  }
 }
 
 @media (max-width: 768px) {
   .title {
-    font-size: clamp(28px, 8vw, 40px); /* Адаптивный размер */
+    font-size: clamp(28px, 8vw, 44px); /* Адаптивный размер */
+  }
+
+  .text {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 620px) {
+  .text {
+    display: none;
   }
 }
