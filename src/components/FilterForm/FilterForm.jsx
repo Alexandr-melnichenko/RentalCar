@@ -5,7 +5,11 @@ import { selectAllCars, selectFilteredCars } from "../../redux/selectors";
 import style from "./FilterForm.module.css";
 import { fetchFilteredCars } from "../../redux/operations";
 import { SelectField } from "./SelectField/SelectField";
-import { resetFilterResult, resetFilters } from "../../redux/carsSlice";
+import {
+  resetFilterResult,
+  resetFilters,
+  resetPagination,
+} from "../../redux/carsSlice";
 
 const validationSchema = Yup.object().shape({
   brand: Yup.string(),
@@ -52,6 +56,7 @@ export const FilterForm = () => {
   const handleReset = (resetForm) => {
     dispatch(resetFilterResult());
     dispatch(resetFilters());
+    dispatch(resetPagination());
     resetForm({
       values: {
         brand: "",
