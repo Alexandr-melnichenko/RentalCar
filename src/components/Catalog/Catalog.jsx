@@ -34,6 +34,7 @@ export const Catalog = () => {
   useEffect(() => {
     dispatch(resetPagination());
     dispatch(fetchCars());
+    console.log("cars.data:", fetchCars());
   }, [dispatch]);
 
   const handleLoadMore = () => {
@@ -90,6 +91,11 @@ export const Catalog = () => {
       );
     });
   }
+
+  console.log(
+    "Все ID машин:",
+    carsToShow.map((car) => car.id)
+  ); // Ищите дубликаты в консоли
 
   return (
     <div className={style.catalogWrapper}>
