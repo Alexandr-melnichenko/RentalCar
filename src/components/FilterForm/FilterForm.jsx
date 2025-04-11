@@ -1,10 +1,11 @@
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { selectAllCars } from "../../redux/selectors";
+import { selectAllCars, selectFilteredCars } from "../../redux/selectors";
 import style from "./FilterForm.module.css";
 import { fetchFilteredCars } from "../../redux/operations";
 import { SelectField } from "./SelectField/SelectField";
+import { resetFilterResult, resetFilters } from "../../redux/carsSlice";
 
 const validationSchema = Yup.object().shape({
   brand: Yup.string(),
@@ -21,6 +22,7 @@ const formatNumberWithCommas = (number) => {
 export const FilterForm = () => {
   const dispatch = useDispatch();
   const cars = useSelector(selectAllCars);
+  const filteredCars = useSelector(selectFilteredCars);
 
   const uniqueBrands = [...new Set(cars.map((car) => car.brand))];
   const uniquePrices = [...new Set(cars.map((car) => car.rentalPrice))].sort(
@@ -47,6 +49,19 @@ export const FilterForm = () => {
     dispatch(fetchFilteredCars(filters)).finally(() => setSubmitting(false));
   };
 
+  const handleReset = (resetForm) => {
+    dispatch(resetFilterResult());
+    dispatch(resetFilters());
+    resetForm({
+      values: {
+        brand: "",
+        rentalPrice: "",
+        minMileage: "",
+        maxMileage: "",
+      },
+    });
+  };
+
   return (
     <Formik
       initialValues={{
@@ -60,7 +75,7 @@ export const FilterForm = () => {
       validateOnChange={false}
       validateOnBlur={false}
     >
-      {({ isSubmitting, values, setFieldValue }) => (
+      {({ isSubmitting, values, setFieldValue, resetForm }) => (
         <Form className={style.form}>
           <div className={style.fieldBlock}>
             <label className={style.label}>Car brand</label>
@@ -160,6 +175,14 @@ export const FilterForm = () => {
               />
             </div>
           </div>
+          {filteredCars.length > 0 && (
+            <button
+              onClick={() => handleReset(resetForm)}
+              className={style.btnReset}
+            >
+              Reset
+            </button>
+          )}
           <button
             type="submit"
             className={style.btnSearch}

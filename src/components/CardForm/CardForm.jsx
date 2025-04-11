@@ -79,8 +79,8 @@ const StyledTextField = styled(TextField)({
   },
   // Добавляем общие стили для автозаполнения
   "& input:-webkit-autofill": {
-    "-webkit-box-shadow": "0 0 0 1000px #F7F7F7 inset", // Сохраняем фон при автозаполнении
-    "-webkit-text-fill-color": "#101828", // Сохраняем цвет текста
+    WebkitBoxShadow: "0 0 0 1000px #F7F7F7 inset", // ✅ camelCase
+    WebkitTextFillColor: "#101828", // ✅ camelCase
   },
   "& .MuiInputLabel-root": {
     color: "#8D929A",

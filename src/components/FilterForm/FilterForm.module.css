@@ -174,3 +174,24 @@
   flex-direction: column;
   position: relative;
 }
+
+.btnReset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 156px !important;
+  height: 44px;
+  border: 1px solid #3470ff;
+  border-radius: 12px;
+  background-color: white;
+  color: #101828;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.btnReset:hover,
+.btnReset:focus {
+  border: 1px solid #0b44cd;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
