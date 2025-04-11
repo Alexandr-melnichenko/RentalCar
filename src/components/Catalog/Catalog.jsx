@@ -75,7 +75,11 @@ export const Catalog = () => {
               {car.rentalCompany} |
             </p>
             <p className={style.grayText}>
-              {car.type} | {car.mileage}km |
+              {car.type} |{" "}
+              {typeof car.mileage === "number"
+                ? car.mileage.toLocaleString("ru-RU")
+                : car.mileage}
+              km |
             </p>
           </div>
 
