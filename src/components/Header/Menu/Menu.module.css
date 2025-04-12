@@ -18,3 +18,12 @@
 .links:active {
   color: #0b44cd;
 }
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 768px) {
+  .links {
+    font-size: 12px;
+  }
+}

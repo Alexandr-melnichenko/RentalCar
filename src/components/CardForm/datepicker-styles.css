@@ -142,3 +142,7 @@
   border-top-color: #3470ff;
   border-bottom-color: #3470ff;
 }
+.react-datepicker-popper {
+  width: 100%;
+  max-width: 300px;
+}

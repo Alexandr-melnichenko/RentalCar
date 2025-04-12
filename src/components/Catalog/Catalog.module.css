@@ -94,3 +94,17 @@
   height: 268px;
   position: relative;
 }
+
+@media (max-width: 992px) {
+  .catalogWrapper {
+    padding-bottom: 100px;
+    padding-top: 64px;
+  }
+}
+
+@media (max-width: 768px) {
+  .catalogWrapper {
+    padding-bottom: 80px;
+    padding-top: 44px;
+  }
+}

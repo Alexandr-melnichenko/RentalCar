@@ -1,6 +1,7 @@
 .form {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 16px;
   justify-content: center;
   margin-bottom: 56px;
@@ -23,24 +24,6 @@
   font-size: 12px;
   color: gray;
 }
-
-/* .fieldSelect {
-  background-color: #f7f7f7;
-  border: none;
-  border-radius: 8px;
-  width: 204px;
-  height: 44px;
-  color: #101828;
-  padding: 12px 16px;
-  font-size: 16px;
-  appearance: none;
-  background-image: url("/sprite.svg#icon-arrow-down");
-  background-repeat: no-repeat;
-  background-size: 16px 16px;
-  background-position: right 12px center;
-  padding-right: 30px;
-  margin-right: -8px;
-} */
 
 .fieldSelect {
   background-color: #f7f7f7;
@@ -75,18 +58,6 @@
   color: #101828;
   background-color: #f9fafb;
 }
-
-/* .fieldSelect::after {
-  content: "";
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
-  background: url("/sprite.svg#icon-arrow-down") no-repeat;
-  pointer-events: none;
-} */
 
 .fieldMileAge {
   background-color: #f7f7f7;
@@ -194,4 +165,12 @@
   border: 1px solid #0b44cd;
   transform: scale(1.1);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 359px) {
+  .rightFieldMileAge,
+  .leftFieldMileAge {
+    width: 100%;
+    max-width: 140px;
+  }
 }
