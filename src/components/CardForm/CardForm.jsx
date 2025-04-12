@@ -16,19 +16,28 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import "./datepicker-styles.css";
+import theme from "../../theme";
 
 // Стилізовані компоненти
 
 const StyledFormContainer = styled(Box)({
   display: "flex",
   flexDirection: "column",
-  width: "640px",
+  width: "100%", // Важно!
+  maxWidth: "640px", // Лимит для десктопа
   height: "auto",
   backgroundColor: "#FFFFFF",
   border: "1px solid #DADDE1",
   borderRadius: "10px",
-  padding: "32px",
+  padding: theme.spacing(2), // Адаптивные отступы
   boxSizing: "border-box",
+  margin: "0 auto", // Центрирование
+
+  [theme.breakpoints.down("md")]: {
+    // Для экранов < 960px
+    padding: theme.spacing(2),
+    maxWidth: "100%",
+  },
 });
 
 const StyledForm = styled("form")({
@@ -103,7 +112,8 @@ const StyledTextArea = styled(StyledTextField)({
 });
 
 const StyledButton = styled(Button)({
-  width: "156px",
+  width: "100%", // Занимает всю ширину на мобильных
+  maxWidth: "156px", // Лимит для десктопа
   height: "44px",
   backgroundColor: "#3470FF",
   borderRadius: "12px",
@@ -115,6 +125,11 @@ const StyledButton = styled(Button)({
   textTransform: "none",
   "&:hover": {
     backgroundColor: "#3470FF",
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    maxWidth: "100%",
+    fontSize: "14px",
   },
 });
 
@@ -144,6 +159,11 @@ const StyledDatePicker = styled(DatePicker)({
     "&:focus": {
       outline: "none",
     },
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "14px",
+    paddingLeft: "12px",
   },
 });
 
