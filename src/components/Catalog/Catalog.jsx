@@ -64,8 +64,9 @@ export const Catalog = () => {
 
           <div className={style.titleBox}>
             <p className={style.title}>
-              {car.brand} <span className={style.blueTitle}>{car.model}</span>,
-              ({car.year})
+              {car.brand}&nbsp;
+              <span className={style.blueTitle}>{car.model},</span>&nbsp;(
+              {car.year})
             </p>
             <p className={style.title}>${car.rentalPrice}</p>
           </div>
