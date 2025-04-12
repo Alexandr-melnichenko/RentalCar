@@ -102,4 +102,11 @@
   .text {
     display: none;
   }
+
+  .title {
+    line-height: 1;
+  }
+  .btn {
+    margin-top: 24px;
+  }
 }
